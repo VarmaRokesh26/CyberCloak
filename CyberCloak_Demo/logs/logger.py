@@ -1,24 +1,19 @@
 import time
-import os
-from config.settings import LOG_FILE_PATH
+from config import settings
 
-# Ensure log folder exists
-os.makedirs(os.path.dirname(LOG_FILE_PATH), exist_ok=True)
+class Logger:
+    def __init__(self, log_console_widget=None):
+        self.log_console = log_console_widget
 
-def log_message(category, message, ui_console=None):
-    """
-    Logs a message to file and optionally updates a UI console.
-    """
-    timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-    log_entry = f"{timestamp} [{category}] {message}\n"
+    def log(self, category, message):
+        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        log_entry = f"{timestamp} [{category}] {message}\n"
 
-    # Write to log file
-    with open(LOG_FILE_PATH, "a") as log_file:
-        log_file.write(log_entry)
+        with open(settings.LOG_FILE, "a") as log_file:
+            log_file.write(log_entry)
 
-    # Update log console in UI (optional, passed from UI)
-    if ui_console:
-        ui_console.config(state="normal")
-        ui_console.insert("end", log_entry)
-        ui_console.see("end")
-        ui_console.config(state="disabled")
+        if self.log_console:
+            self.log_console.config(state="normal")
+            self.log_console.insert("end", log_entry)
+            self.log_console.see("end")
+            self.log_console.config(state="disabled")
