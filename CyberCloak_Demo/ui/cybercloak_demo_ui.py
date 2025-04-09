@@ -10,12 +10,12 @@ class CyberCloakDemoUI:
 
         self._setup_window()
         self._build_ip_display()
-        self._build_buttons()
         self._build_progress_bar()
         self._build_log_console()
 
         # Initial load
-        self.handlers["refresh_ips"](self.local_ip, self.public_ip)
+        if "refresh_ips" in self.handlers:
+            self.handlers["refresh_ips"]()
 
     def _setup_window(self):
         self.root.title("CyberCloak Demo")
@@ -28,7 +28,7 @@ class CyberCloakDemoUI:
 
         tk.Label(frame, text="Local IP:", font=("Arial", 10, "bold")).grid(row=0, column=0, padx=10, pady=5)
         tk.Entry(frame, width=25, textvariable=self.local_ip, state="readonly").grid(row=0, column=1, padx=5)
-        tk.Button(frame, text="Refresh", command=lambda: self.handlers["refresh_ips"](self.local_ip, self.public_ip)).grid(row=0, column=2, padx=5)
+        tk.Button(frame, text="Refresh", command=lambda: self.handlers["refresh_ips"]()).grid(row=0, column=2, padx=5)
 
         tk.Label(frame, text="Public IP:", font=("Arial", 10, "bold")).grid(row=1, column=0, padx=10, pady=5)
         tk.Entry(frame, width=25, textvariable=self.public_ip, state="readonly").grid(row=1, column=1, padx=5)
@@ -37,7 +37,7 @@ class CyberCloakDemoUI:
         frame = tk.Frame(self.root)
         frame.pack(pady=10)
 
-        tk.Button(frame, text="Scan Ports", width=15, command=self.handlers["scan_ports"]).grid(row=0, column=0, padx=5)
+        tk.Button(frame, text="Scan Ports", width=15, command=self.handlers.get("scan_ports")).grid(row=0, column=0, padx=5)
         tk.Button(frame, text="Connect VPN", width=15, command=self.handlers["connect_vpn"]).grid(row=0, column=1, padx=5)
 
         self.disconnect_button = tk.Button(frame, text="Disconnect VPN", width=15, state="disabled", command=self.handlers["disconnect_vpn"])
@@ -80,6 +80,14 @@ class CyberCloakDemoUI:
         self.log_console.insert("end", entry)
         self.log_console.see("end")
         self.log_console.config(state="disabled")
+    
+    def set_ip_info(self, local_ip, public_ip):
+        self.local_ip.set(local_ip)
+        self.public_ip.set(public_ip)
 
     def set_disconnect_button_state(self, enabled):
         self.disconnect_button.config(state="normal" if enabled else "disabled")
+
+    def set_handlers(self, handlers):
+        self.handlers = handlers
+        self._build_buttons()

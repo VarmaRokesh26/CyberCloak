@@ -1,48 +1,50 @@
 import tkinter as tk
+import threading
 from ui.cybercloak_demo_ui import CyberCloakDemoUI
-from core import vpn_connector, port_scanner
-from utils import net_utils
-from logs import logger
+from core.vpn_connector import connect_vpn, disconnect_vpn
+from core.port_scanner import scan_ports
+from utils.net_utils import get_local_ip, get_public_ip
+from logs.logger import Logger
 
 def main():
     root = tk.Tk()
+    root.geometry("800x600")
+    root.title("CyberCloak Demo")
 
-    # 🧠 Define handlers with UI callbacks
-    def connect_vpn():
-        ui.show_progress(7)
-        vpn_connector.connect_vpn(
-            log_callback=ui.log,
-            enable_disconnect_btn=lambda: ui.set_disconnect_button_state(True)
-        )
+    # Step 1: Create UI with empty handlers
+    ui = CyberCloakDemoUI(root, handlers={})
 
-    def disconnect_vpn():
-        vpn_connector.disconnect_vpn(
-            log_callback=ui.log,
-            disable_disconnect_btn=lambda: ui.set_disconnect_button_state(False)
-        )
+    # Step 2: Initialize logger with UI callback
+    logger = Logger(log_callback=ui.log)
 
-    def scan_ports():
-        ui.show_progress(5)
-        port_scanner.scan_ports(
-            log_callback=ui.log
-        )
+    # Step 3: Handler functions using logger
+    def handle_connect_vpn():
+        connect_vpn(logger, ui.show_progress, ui.disconnect_button)  # Pass actual button
 
-    def refresh_ips(local_ip_var, public_ip_var):
-        local_ip = net_utils.get_local_ip()
-        public_ip = net_utils.get_public_ip()
+    def handle_disconnect_vpn():
+        disconnect_vpn(logger, ui.disconnect_button)  # Pass actual button
 
-        local_ip_var.set(local_ip)
-        public_ip_var.set(public_ip)
+    def handle_scan_ports():
+        def scan_task():
+            scan_ports(get_local_ip(), logger, ui.show_progress)
+        threading.Thread(target=scan_task, daemon=True).start()
+
+    def handle_refresh_ips():
+        local_ip = get_local_ip()
+        public_ip = get_public_ip()
+        ui.set_ip_info(local_ip, public_ip)
         logger.log("INFO", "IPs refreshed.")
-        ui.log("INFO", "IPs refreshed.")
 
-    # 👇 Create UI instance with all handlers
-    ui = CyberCloakDemoUI(root, handlers={
-        "connect_vpn": connect_vpn,
-        "disconnect_vpn": disconnect_vpn,
-        "scan_ports": scan_ports,
-        "refresh_ips": refresh_ips
+    # Step 4: Assign handlers to UI
+    ui.set_handlers({
+        "connect_vpn": handle_connect_vpn,
+        "disconnect_vpn": handle_disconnect_vpn,
+        "scan_ports": handle_scan_ports,
+        "refresh_ips": handle_refresh_ips
     })
+
+    # Step 5: Trigger initial IP refresh
+    handle_refresh_ips()
 
     root.mainloop()
 

@@ -1,19 +1,22 @@
-import time
-from config import settings
+import os
+from datetime import datetime
+
+LOG_DIR = os.path.join(os.getcwd(), "logs")
+LOG_FILE = os.path.join(LOG_DIR, "activity_log.txt")
 
 class Logger:
-    def __init__(self, log_console_widget=None):
-        self.log_console = log_console_widget
+    def __init__(self, log_callback=None):
+        self.log_callback = log_callback
+        os.makedirs(LOG_DIR, exist_ok=True)
 
     def log(self, category, message):
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        log_entry = f"{timestamp} [{category}] {message}\n"
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        entry = f"{timestamp} [{category.upper()}] {message}"
 
-        with open(settings.LOG_FILE, "a") as log_file:
-            log_file.write(log_entry)
+        # Write to file
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(entry + "\n")
 
-        if self.log_console:
-            self.log_console.config(state="normal")
-            self.log_console.insert("end", log_entry)
-            self.log_console.see("end")
-            self.log_console.config(state="disabled")
+        # Send to UI if callback is available
+        if self.log_callback:
+            self.log_callback(category.upper(), message)
