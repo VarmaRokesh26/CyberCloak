@@ -4,7 +4,7 @@ from ui.cybercloak_demo_ui import CyberCloakDemoUI
 from core.vpn_connector import connect_vpn, disconnect_vpn
 from core.port_scanner import scan_ports
 from utils.net_utils import get_local_ip, get_public_ip
-from logs.logger import Logger
+from config.logger import Logger
 
 def main():
     root = tk.Tk()
