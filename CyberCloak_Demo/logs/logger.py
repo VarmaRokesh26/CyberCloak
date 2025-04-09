@@ -1,19 +1,26 @@
 import time
-from config import settings
+from config.settings import LOG_FILE
 
-class Logger:
-    def __init__(self, log_console_widget=None):
-        self.log_console = log_console_widget
+# 🔁 UI log console reference (will be injected)
+log_console = None
 
-    def log(self, category, message):
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        log_entry = f"{timestamp} [{category}] {message}\n"
+def attach_log_console(console_widget):
+    """Link the UI's log console (scrolledtext) to enable UI log updates."""
+    global log_console
+    log_console = console_widget
 
-        with open(settings.LOG_FILE, "a") as log_file:
-            log_file.write(log_entry)
+def log_message(category, message):
+    """Log with timestamp and category to both file and (if available) UI."""
+    timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+    log_entry = f"{timestamp} [{category}] {message}\n"
 
-        if self.log_console:
-            self.log_console.config(state="normal")
-            self.log_console.insert("end", log_entry)
-            self.log_console.see("end")
-            self.log_console.config(state="disabled")
+    # ✅ Write to log file
+    with open(LOG_FILE, "a") as log:
+        log.write(log_entry)
+
+    # ✅ Update log console (if UI linked it)
+    if log_console:
+        log_console.config(state="normal")
+        log_console.insert("end", log_entry)
+        log_console.see("end")
+        log_console.config(state="disabled")
