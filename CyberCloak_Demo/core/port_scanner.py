@@ -4,7 +4,7 @@ import time
 from logs.logger import log_message
 from config.settings import SCAN_PORT_START, SCAN_PORT_END, SCAN_TIMEOUT, MAX_THREADS
 from utils.net_utils import get_local_ip
-from ui.loading_bar import show_loading_bar
+from ui.loading_bar import show_loading_bar # type: ignore
 import threading
 
 def scan_port(ip, port):
