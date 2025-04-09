@@ -1,48 +1,51 @@
 import os
 import subprocess
 import threading
-from config import settings
+import time
+from logs.logger import log_message
+from config.settings import CONFIG_DIR, COMMON_PATHS
+from ui.cybercloak_demo_ui import update_progress_bar, btn_disconnect_vpn
 
-def check_openvpn(logger):
-    for path in settings.COMMON_OPENVPN_PATHS:
+def check_openvpn():
+    for path in COMMON_PATHS:
         if os.path.exists(path):
-            logger.log("INFO", f"OpenVPN found at: {path}")
+            log_message("INFO", f"OpenVPN found at: {path}")
             return path
-    logger.log("ERROR", "OpenVPN is not installed or not in PATH.")
+    log_message("ERROR", "OpenVPN is not installed or not in PATH.")
     return None
 
-def get_vpn_configs(logger):
-    configs = [f for f in os.listdir(settings.CONFIG_DIR) if f.endswith(".ovpn")]
+def get_vpn_configs():
+    configs = [f for f in os.listdir(CONFIG_DIR) if f.endswith(".ovpn")]
     if not configs:
-        logger.log("ERROR", "No VPN configuration files found in config folder.")
+        log_message("ERROR", "No VPN configuration files found in config folder.")
     return configs
 
-def connect_vpn(logger, update_progress_callback, btn_disconnect):
+def connect_vpn():
     def vpn_task():
-        openvpn_path = check_openvpn(logger)
+        openvpn_path = check_openvpn()
         if not openvpn_path:
             return
 
-        configs = get_vpn_configs(logger)
+        configs = get_vpn_configs()
         if not configs:
             return
+        
+        vpn_config = os.path.join(CONFIG_DIR, configs[0])
+        log_message("VPN", f"Trying VPN: {configs[0]}...")
 
-        vpn_config = os.path.join(settings.CONFIG_DIR, configs[0])
-        logger.log("VPN", f"Trying VPN: {configs[0]}...")
-
-        update_progress_callback(7)
+        update_progress_bar(7)
 
         try:
             subprocess.Popen([openvpn_path, "--config", vpn_config], shell=True)
-            logger.log("SUCCESS", "VPN Connected Successfully!")
-            btn_disconnect.config(state="normal")
+            log_message("SUCCESS", "VPN Connected Successfully!")
+            btn_disconnect_vpn.config(state="normal")
         except Exception as e:
-            logger.log("ERROR", f"Failed to connect VPN: {e}")
+            log_message("ERROR", f"Failed to connect VPN: {e}")
 
     threading.Thread(target=vpn_task, daemon=True).start()
 
-def disconnect_vpn(logger, btn_disconnect):
-    logger.log("VPN", "Disconnecting VPN...")
+def disconnect_vpn():
+    log_message("VPN", "Disconnecting VPN...")
     subprocess.run(["taskkill", "/F", "/IM", "openvpn.exe"], shell=True)
-    logger.log("SUCCESS", "VPN Disconnected.")
-    btn_disconnect.config(state="disabled")
+    log_message("SUCCESS", "VPN Disconnected.")
+    btn_disconnect_vpn.config(state="disabled")
