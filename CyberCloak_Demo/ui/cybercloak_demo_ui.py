@@ -44,8 +44,23 @@ class CyberCloakDemoUI:
         self.disconnect_button.grid(row=0, column=2, padx=5)
 
     def _build_progress_bar(self):
-        self.progress = ttk.Progressbar(self.root, mode="determinate", length=500)
-        self.progress.pack(pady=5)
+        style = ttk.Style(self.root)
+        style.theme_use('default')
+
+        # Custom style for blue color
+        style.configure("blue.Horizontal.TProgressbar", 
+                        troughcolor="#e0e0e0", 
+                        background="#2196F3",  # Material Blue
+                        thickness=10)
+
+        self.progress = ttk.Progressbar(
+            self.root,
+            style="blue.Horizontal.TProgressbar",
+            orient="horizontal",
+            mode="determinate",
+            length=500  # Half width if your window is 800
+        )
+        self.progress.pack(pady=10)
         self.progress.pack_forget()
 
     def _build_log_console(self):
