@@ -19,17 +19,13 @@ def main():
 
     # Step 3: Handler functions using logger
     def handle_connect_vpn():
-        def scan_task():
-            connect_vpn(logger, ui.show_progress, ui.disconnect_button)  # Pass actual button
-        threading.Thread(target=scan_task, daemon=True).start()
+        ui.run_with_progress(lambda: connect_vpn(logger, ui.show_progress, ui.disconnect_button))
 
     def handle_disconnect_vpn():
         disconnect_vpn(logger, ui.disconnect_button)  # Pass actual button
 
     def handle_scan_ports():
-        def scan_task():
-            scan_ports(get_local_ip(), logger, ui.show_progress)
-        threading.Thread(target=scan_task, daemon=True).start()
+        ui.run_with_progress(lambda: scan_ports(get_local_ip(), logger, ui.show_progress))
 
     def handle_refresh_ips():
         local_ip = get_local_ip()

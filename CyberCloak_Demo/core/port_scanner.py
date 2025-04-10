@@ -2,6 +2,8 @@ import socket
 import concurrent.futures
 import time
 
+from CyberCloak_Demo.config import settings
+
 def scan_port(ip, port):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -11,24 +13,28 @@ def scan_port(ip, port):
     except:
         return None
 
-def scan_ports(ip, logger, update_progress_callback):
+def scan_ports(target_ip, logger, show_progress):
     logger.log("SCAN", "Scanning open ports...")
-    ports_to_scan = range(1, 10000)
 
     open_ports = []
-    start_time = time.time()
+    total_ports = len(settings.COMMON_PORTS)
+    
+    for idx, port in enumerate(settings.COMMON_PORTS):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(0.5)
+            result = sock.connect_ex((target_ip, port))
+            if result == 0:
+                open_ports.append(port)
+            sock.close()
+        except:
+            pass
 
-    update_progress_callback(5)
+        # Update progress every few ports
+        if idx % 5 == 0:
+            percent = int((idx / total_ports) * 100)
+            show_progress(percent)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
-        results = executor.map(lambda port: scan_port(ip, port), ports_to_scan)
+    show_progress(100)
+    logger.log("RESULT", f"Open Ports Found: {open_ports}")
 
-    open_ports = [port for port in results if port is not None]
-    end_time = time.time()
-
-    if open_ports:
-        logger.log("RESULT", f"Open Ports Found: {open_ports}")
-    else:
-        logger.log("RESULT", "No open ports found.")
-
-    logger.log("SCAN", f"Scan completed in {end_time - start_time:.2f} seconds.")
