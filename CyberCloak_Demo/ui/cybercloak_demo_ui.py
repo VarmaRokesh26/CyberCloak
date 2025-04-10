@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import scrolledtext, ttk
 
@@ -51,7 +52,7 @@ class CyberCloakDemoUI:
         style.configure("blue.Horizontal.TProgressbar", 
                         troughcolor="#e0e0e0", 
                         background="#2196F3",
-                        bordercolor="#2196F3",  # Material Blue
+                        bordercolor="#2196F3",
                         thickness=10)
 
         self.progress = ttk.Progressbar(
@@ -107,3 +108,13 @@ class CyberCloakDemoUI:
     def set_handlers(self, handlers):
         self.handlers = handlers
         self._build_buttons()
+
+    def run_with_progress(self, task_func, *args, **kwargs):
+        def thread_wrapper():
+            try:
+                self.show_progress(7)  # Start progress
+                task_func(*args, **kwargs)
+            finally:
+                self.show_progress(0)  # Stop progress
+
+        threading.Thread(target=thread_wrapper, daemon=True).start()

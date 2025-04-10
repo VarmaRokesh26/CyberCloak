@@ -19,7 +19,9 @@ def main():
 
     # Step 3: Handler functions using logger
     def handle_connect_vpn():
-        connect_vpn(logger, ui.show_progress, ui.disconnect_button)  # Pass actual button
+        def scan_task():
+            connect_vpn(logger, ui.show_progress, ui.disconnect_button)  # Pass actual button
+        threading.Thread(target=scan_task, daemon=True).start()
 
     def handle_disconnect_vpn():
         disconnect_vpn(logger, ui.disconnect_button)  # Pass actual button
