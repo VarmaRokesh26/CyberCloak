@@ -1,9 +1,10 @@
-#define AppVer ReadIni("version.ini", "Version", "AppVer", "1.0.0")
+#define AppVer ReadIni("version.ini", "Version", "AppVer")
+#pragma message "VERSION FROM INI: "+AppVer
 
 [Setup]
 AppName=CyberCloak_demo
 AppVersion={#AppVer}
-DefaultDirName={pf}\CyberCloak_demo
+DefaultDirName={commonpf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
 OutputBaseFilename=CyberCloakInstaller_{#AppVer}
@@ -25,7 +26,7 @@ Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
 Name: "{group}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"; WorkingDir: "{app}"
-Name: "{commondesktop}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{commondesktop}\CyberCloak_demo"; Filename: "{app}\CyberCloak_demo.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
