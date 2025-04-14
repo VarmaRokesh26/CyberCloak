@@ -1,5 +1,5 @@
 [Setup]
-AppName=CyberCloak_demo
+AppName=CyberCloak_Demo
 AppVersion=1.5.23
 DefaultDirName={commonpf}\CyberCloak_Demo
 DefaultGroupName=CyberCloak_Demo
