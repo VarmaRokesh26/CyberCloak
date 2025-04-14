@@ -2,6 +2,7 @@ import os
 import subprocess
 import threading
 from config import settings
+from subprocess import CREATE_NO_WINDOW
 
 def check_openvpn(logger):
     for path in settings.COMMON_OPENVPN_PATHS:
@@ -38,8 +39,7 @@ def connect_vpn(logger, update_progress_callback, btn_disconnect):
 
             subprocess.Popen(
                 [openvpn_path, "--config", vpn_config],
-                shell=True,
-                startupinfo=startupinfo
+                creationflags=subprocess.CREATE_NO_WINDOW
             )
             logger.log("SUCCESS", "VPN Connected Successfully!")
             btn_disconnect.config(state="normal")

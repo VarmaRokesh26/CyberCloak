@@ -1,4 +1,4 @@
-#define AppVer ReadIni("version.ini", "Version", "AppVer", "2.0.4")
+#define AppVer ReadIni("version.ini", "Version", "AppVer", "1.0.0")
 
 [Setup]
 AppName=CyberCloak_demo
@@ -10,6 +10,7 @@ OutputBaseFilename=CyberCloakInstaller_{#AppVer}
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
+DisableDirPage=no
 
 [Files]
 ; Make sure the EXE is sourced correctly
