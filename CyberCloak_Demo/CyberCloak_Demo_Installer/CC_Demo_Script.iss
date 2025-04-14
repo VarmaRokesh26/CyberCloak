@@ -1,11 +1,12 @@
-#define AppVer GetFileVersion("version.txt")
+#define AppVer Trim(FileRead("version.txt"))
+
 [Setup]
 AppName=CyberCloak_demo
 AppVersion={#AppVer}
 DefaultDirName={pf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
-OutputBaseFilename=CyberCloakInstaller
+OutputBaseFilename=CyberCloakInstaller_{#AppVer}
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
