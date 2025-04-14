@@ -1,6 +1,9 @@
+from logging import root
 import threading
 import tkinter as tk
+import os
 from tkinter import scrolledtext, ttk
+from tkinter import Tk, PhotoImage
 
 class CyberCloakDemoUI:
     def __init__(self, root, handlers):
@@ -19,9 +22,19 @@ class CyberCloakDemoUI:
             self.handlers["refresh_ips"]()
 
     def _setup_window(self):
-        self.root.title("CyberCloak Demo")
+        self.root.title("Cyber Cloak Demo")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
+
+        # Dynamically get the current folder where the app is running
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        icon_path = os.path.join(base_path, "..", "assets", "cc_icon.ico")  # go up from /ui/ to /assets/
+
+        if os.path.exists(icon_path):
+            self.root.iconbitmap(icon_path)
+        else:
+            print(f"App icon not found at {icon_path}")
+
 
     def _build_ip_display(self):
         frame = tk.Frame(self.root)
