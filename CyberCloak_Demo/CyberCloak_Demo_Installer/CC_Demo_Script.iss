@@ -1,5 +1,5 @@
-#define AppVer ReadIni("version.ini", "Version", "AppVer")
-#pragma message "VERSION FROM INI: "+AppVer
+#define AppVer "{#AppVer}"
+#pragma message "VERSION FROM BAT FILE: {#AppVer}"
 
 [Setup]
 AppName=CyberCloak_demo

@@ -3,7 +3,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read("version.ini")
 
-major, minor, patch = map(int, config["Version"]["AppVer"].split("."))
+major, minor, patch = map(int, config["Version"]["appver"].split("."))
 patch += 1
 new_version = f"{major}.{minor}.{patch}"
 
