@@ -1,4 +1,4 @@
-#define AppVer Trim(FileRead("version.txt"))
+#define AppVer ReadIni("version.ini", "Version", "AppVer", "2.0.4")
 
 [Setup]
 AppName=CyberCloak_demo
