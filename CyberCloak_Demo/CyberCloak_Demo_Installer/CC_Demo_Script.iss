@@ -1,6 +1,7 @@
+#define AppVer GetFileVersion("version.txt")
 [Setup]
 AppName=CyberCloak_demo
-AppVersion=1.0
+AppVersion={#AppVer}
 DefaultDirName={pf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
@@ -21,8 +22,8 @@ Source: "logs\*"; DestDir: "{app}\logs"; Flags: ignoreversion recursesubdirs cre
 Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
-Name: "{group}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"
-Name: "{commondesktop}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"; Tasks: desktopicon
+Name: "{group}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"; WorkingDir: "{app}"
+Name: "{commondesktop}\CyberCloak_demo"; Filename: "{app}\CyberCloak__demo.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"

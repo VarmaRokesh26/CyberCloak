@@ -33,7 +33,14 @@ def connect_vpn(logger, update_progress_callback, btn_disconnect):
         update_progress_callback(7)
 
         try:
-            subprocess.Popen([openvpn_path, "--config", vpn_config], shell=True)
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+            subprocess.Popen(
+                [openvpn_path, "--config", vpn_config],
+                shell=True,
+                startupinfo=startupinfo
+            )
             logger.log("SUCCESS", "VPN Connected Successfully!")
             btn_disconnect.config(state="normal")
         except Exception as e:
