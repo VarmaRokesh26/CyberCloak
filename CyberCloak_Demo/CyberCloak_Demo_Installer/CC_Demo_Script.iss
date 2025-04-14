@@ -11,7 +11,7 @@ PrivilegesRequired=admin
 DisableDirPage=no
 
 [Files]
-Source: "dist\CyberCloak_Demo.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "CyberCloak_Demo.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "assets\cc_icon.ico"; DestDir: "{app}\assets"; Flags: ignoreversion
 
 ; Include config and logs folders
