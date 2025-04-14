@@ -1,9 +1,8 @@
-#define AppVer "{#AppVer}"
 #pragma message "VERSION FROM BAT FILE: {#AppVer}"
 
 [Setup]
 AppName=CyberCloak_demo
-AppVersion={#AppVer}
+AppVersion=1.2.16
 DefaultDirName={commonpf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
