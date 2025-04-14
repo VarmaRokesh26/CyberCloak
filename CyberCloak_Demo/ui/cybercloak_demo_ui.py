@@ -21,7 +21,7 @@ class CyberCloakDemoUI:
     def _setup_window(self):
         self.root.title("CyberCloak Demo")
         self.root.geometry("600x500")
-        self.root.resizable(False, False)
+        self.root.resizable(True, True)
 
     def _build_ip_display(self):
         frame = tk.Frame(self.root)
@@ -60,7 +60,7 @@ class CyberCloakDemoUI:
             style="blue.Horizontal.TProgressbar",
             orient="horizontal",
             mode="determinate",
-            length=500  # Half width if your window is 800
+            length=500
         )
         self.progress.pack(pady=10)
         self.progress.pack_forget()
@@ -77,7 +77,7 @@ class CyberCloakDemoUI:
     def show_progress(self, duration_sec):
         self.progress.pack()
         self.progress["value"] = 0
-        steps = 100
+        steps = 50
         interval = duration_sec / steps
 
         def step(i=0):

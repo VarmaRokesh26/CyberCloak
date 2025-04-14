@@ -18,7 +18,7 @@ def scan_ports(ip, logger, update_progress_callback):
     open_ports = []
     start_time = time.time()
 
-    update_progress_callback(5)
+    update_progress_callback(1000)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
         results = executor.map(lambda port: scan_port(ip, port), ports_to_scan)
