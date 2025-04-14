@@ -1,8 +1,5 @@
-from logging import root
 import threading
 import tkinter as tk
-import os
-from tkinter import PhotoImage, Label
 from tkinter import scrolledtext, ttk
 
 class CyberCloakDemoUI:
@@ -22,16 +19,6 @@ class CyberCloakDemoUI:
             self.handlers["refresh_ips"]()
 
     def _setup_window(self):
-        logo_path = os.path.join(os.getcwd(), 'assets', 'logo.png')  # or adjust relative path if needed
-
-        try:
-            logo_image = PhotoImage(file=logo_path)
-            logo_label = Label(root, image=logo_image)
-            logo_label.image = logo_image  # Keep reference
-            logo_label.pack(pady=10)  # Or use .grid(row=0, column=0) for positioning
-        except Exception as e:
-            print(f"Logo load failed: {e}")
-
         self.root.title("CyberCloak Demo")
         self.root.geometry("600x500")
         self.root.resizable(True, True)
