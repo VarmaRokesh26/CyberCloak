@@ -1,10 +1,10 @@
 [Setup]
 AppName=CyberCloak_demo
-AppVersion=1.3.19
+AppVersion=1.3.20
 DefaultDirName={commonpf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
-OutputBaseFilename=CyberCloakInstaller_1.3.19
+OutputBaseFilename=CyberCloakInstaller_1.3.20
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
