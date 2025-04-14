@@ -1,12 +1,10 @@
-#pragma message "VERSION FROM BAT FILE: {#AppVer}"
-
 [Setup]
 AppName=CyberCloak_demo
 AppVersion=1.2.16
 DefaultDirName={commonpf}\CyberCloak_demo
 DefaultGroupName=CyberCloak_demo
 OutputDir=.\installer_output
-OutputBaseFilename=CyberCloakInstaller_{#AppVer}
+OutputBaseFilename=CyberCloakInstaller_1.2.16
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
