@@ -1,5 +1,5 @@
 import time
-from settings import LOG_FILE
+from config import settings
 import tkinter as tk
 
 # This will be set by UI module on app startup
@@ -14,7 +14,7 @@ def log_message(category: str, message: str):
     log_entry = f"{timestamp} [{category}] {message}\n"
 
     # Log to file
-    with open(LOG_FILE, "a") as log:
+    with open(settings.LOG_FILE, "a") as log:
         log.write(log_entry)
 
     # Log to UI console if available
