@@ -3,7 +3,6 @@ import threading
 import tkinter as tk
 import os
 from tkinter import scrolledtext, ttk
-from tkinter import Tk, PhotoImage
 
 class CyberCloakDemoUI:
     def __init__(self, root, handlers):
