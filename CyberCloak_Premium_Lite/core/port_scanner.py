@@ -1,30 +1,32 @@
-import os
 import subprocess
 import threading
-from utils.logger import Logger
 from utils.paths import NMAP_PATH
-from utils.ip_manager import get_local_ip, check_nmap
+from utils.logger import Logger
 
+def scan_ports(local_ip, logger: Logger, show_progress):
 
-def scan_ports(ui_callback=None):
-    """
-    Performs a detailed port scan on the local IP using Nmap.
-    Optionally accepts a `ui_callback(duration)` to show progress bar.
-    """
-    def scan_task():
-        if not check_nmap():
-            return
+    def update_progress(steps):
+        show_progress(steps)
 
-        ip = get_local_ip()
-        Logger.log("SCAN", f"Starting port scan on {ip}...")
-        if ui_callback:
-            ui_callback(11)
+    def run_scan():
+        command = [NMAP_PATH, "-p", "1-65535", local_ip] 
 
         try:
-            cmd = [NMAP_PATH, "-sS", "-sV", "-p-", ip]  # SYN scan + version detection
-            output = subprocess.check_output(cmd, text=True)
-            Logger.log("RESULT", f"Port Scan Results:\n{output}")
-        except Exception as e:
-            Logger.log("ERROR", f"Port scan failed: {e}")
+            logger.log("INFO", f"Scanning ports on {local_ip} using Nmap...")
+            update_progress(1)
 
-    threading.Thread(target=scan_task, daemon=True).start()
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            for line in process.stdout:
+                logger.log("INFO", line.strip())
+
+            process.wait() 
+            logger.log("INFO", "Port scan completed.")
+
+            update_progress(100)
+
+        except Exception as e:
+            logger.log("ERROR", f"Error during Nmap port scan: {str(e)}")
+            update_progress(0)
+
+    threading.Thread(target=run_scan, daemon=True).start()
