@@ -2,7 +2,8 @@ import subprocess
 import threading
 import os
 from utils.logger import Logger
-from utils.paths import CONFIG_DIR
+from utils.paths import CONFIG_DIR, COMMON_PATHS
+
 
 def get_vpn_config_file():
     config_files = [f for f in os.listdir(CONFIG_DIR) if f.endswith(".ovpn")]
@@ -27,7 +28,18 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             update_progress(0)
             return
 
-        command = ["openvpn", "--config", vpn_config_file]
+        openvpn_executable = None
+        for path in COMMON_PATHS:
+            if os.path.exists(path):
+                openvpn_executable = path
+                break
+
+        if openvpn_executable is None:
+            logger.log("ERROR", "OpenVPN executable not found in specified paths.")
+            update_progress(0)
+            return
+
+        command = [openvpn_executable, "--config", vpn_config_file]
 
         try:
             logger.log("INFO", f"Starting VPN connection with {vpn_config_file}...")
@@ -62,7 +74,18 @@ def disconnect_vpn(logger: Logger, disconnect_button):
 
     try:
         logger.log("INFO", f"Disconnecting VPN using {vpn_config_file}...")
-        command = ["openvpn", "--config", vpn_config_file, "--disconnect"]
+        openvpn_executable = None
+        for path in COMMON_PATHS:
+            if os.path.exists(path):
+                openvpn_executable = path
+                break
+
+        if openvpn_executable is None:
+            logger.log("ERROR", "OpenVPN executable not found in specified paths.")
+            disconnect_button.config(state="disabled")
+            return
+
+        command = [openvpn_executable, "--config", vpn_config_file, "--disconnect"]
 
         subprocess.call(command)
 
