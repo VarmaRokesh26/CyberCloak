@@ -1,67 +1,60 @@
-import os
 import subprocess
 import threading
-import time
+from utils.paths import COMMON_PATHS
+from utils.logger import Logger
 
-from utils.paths import CONFIG_DIR, COMMON_PATHS
+def connect_vpn(logger: Logger, show_progress, disconnect_button):
+
+    def update_progress(steps):
+        show_progress(steps)
+
+    def run_vpn_connection():
+        vpn_exe_path = None
+        for path in COMMON_PATHS:
+            if subprocess.call(["where", "openvpn"], stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0:
+                vpn_exe_path = path
+                break
+
+        if vpn_exe_path is None:
+            logger.log("ERROR", "No OpenVPN executable found.")
+            update_progress(0)
+            return
+
+        command = [vpn_exe_path, "--config", "config/vpn_config.ovpn"] 
+
+        try:
+            logger.log("INFO", "Starting VPN connection...")
+            update_progress(1)
+
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            for line in process.stdout:
+                logger.log("INFO", line.strip()) 
+
+            process.wait() 
+            update_progress(100)
+
+            logger.log("INFO", "VPN connected successfully.")
+            disconnect_button.config(state="normal") 
+
+        except Exception as e:
+            logger.log("ERROR", f"Error during VPN connection: {str(e)}")
+            update_progress(0)
+            disconnect_button.config(state="disabled")
+
+    threading.Thread(target=run_vpn_connection, daemon=True).start()
 
 
-def check_openvpn(callback_log):
-    for path in COMMON_PATHS:
-        if os.path.exists(path):
-            callback_log("INFO", f"OpenVPN found at: {path}")
-            return path
-    callback_log("ERROR", "OpenVPN is not installed or not found in expected paths.")
-    return None
-
-
-def get_vpn_configs(callback_log):
+def disconnect_vpn(logger: Logger, disconnect_button):
+    """Disconnect VPN using OpenVPN and reset button state"""
     try:
-        configs = [f for f in os.listdir(CONFIG_DIR) if f.endswith(".ovpn")]
-        if not configs:
-            callback_log("ERROR", "No VPN configuration files found in config folder.")
-        return configs
+        logger.log("INFO", "Disconnecting VPN...")
+        command = ["openvpn", "--config", "config/vpn_config.ovpn", "--disconnect"]
+
+        subprocess.call(command)
+
+        logger.log("INFO", "VPN disconnected successfully.")
+        disconnect_button.config(state="disabled") 
+
     except Exception as e:
-        callback_log("ERROR", f"Failed to load VPN configs: {e}")
-        return []
-
-
-def connect_vpn(callback_log, callback_progress, callback_disconnect_toggle):
-    def vpn_task():
-        openvpn_path = check_openvpn(callback_log)
-        if not openvpn_path:
-            return
-
-        configs = get_vpn_configs(callback_log)
-        if not configs:
-            return
-
-        vpn_config = os.path.join(CONFIG_DIR, configs[0])
-        callback_log("VPN", f"Connecting to VPN using: {configs[0]}")
-        callback_progress(7)
-
-        try:
-            subprocess.Popen([openvpn_path, "--config", vpn_config], shell=True)
-            callback_log("SUCCESS", "VPN Connected Successfully!")
-            callback_disconnect_toggle(True)
-        except Exception as e:
-            callback_log("ERROR", f"Failed to connect to VPN: {e}")
-
-    threading.Thread(target=vpn_task, daemon=True).start()
-
-
-def disconnect_vpn(callback_log, callback_progress, callback_disconnect_toggle):
-    def disconnect_task():
-        callback_log("VPN", "Disconnecting VPN...")
-        callback_progress(3)
-
-        try:
-            os.system("taskkill /F /IM openvpn.exe")
-            time.sleep(2)
-            callback_log("VPN", "VPN Disconnected Successfully.")
-        except Exception as e:
-            callback_log("ERROR", f"Failed to disconnect VPN: {e}")
-
-        callback_disconnect_toggle(False)
-
-    threading.Thread(target=disconnect_task, daemon=True).start()
+        logger.log("ERROR", f"Error during VPN disconnection: {str(e)}")
