@@ -1,11 +1,11 @@
-import os
 from datetime import datetime
-from .paths import LOG_FILE, LOG_DIR
+from utils.paths import LOG_FILE
+import os
 
 class Logger:
     def __init__(self, log_callback=None):
         self.log_callback = log_callback
-        os.makedirs(LOG_DIR, exist_ok=True)
+        os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
     def log(self, category, message):
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

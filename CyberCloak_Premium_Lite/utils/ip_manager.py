@@ -1,6 +1,7 @@
 import socket
 import subprocess
-import shutil
+import os
+from utils.paths import NMAP_PATH
 
 def get_local_ip():
     try:
@@ -15,5 +16,5 @@ def get_public_ip():
         return "Unavailable"
 
 def check_nmap():
-    """Checks if Nmap is installed and available in PATH"""
-    return shutil.which("nmap") is not None
+    """Checks if the custom Nmap path exists"""
+    return os.path.exists(NMAP_PATH)
