@@ -1,30 +1,32 @@
-import os
 import subprocess
 import threading
-from utils.logger import Logger
 from utils.paths import NMAP_PATH
-from utils.ip_manager import get_local_ip, check_nmap
+from utils.logger import Logger
 
+def check_vulnerabilities(local_ip, logger: Logger, show_progress):
 
-def scan_vulnerabilities(ui_callback=None):
-    """
-    Performs a vulnerability scan using Nmap scripts on the local IP.
-    Optionally accepts a `ui_callback(duration)` to show progress bar.
-    """
-    def vuln_task():
-        if not check_nmap():
-            return
+    def update_progress(steps):
+        show_progress(steps)
 
-        ip = get_local_ip()
-        Logger.log("SCAN", f"Starting vulnerability scan on {ip}...")
-        if ui_callback:
-            ui_callback(10)
+    def run_vuln_check():
+        command = [NMAP_PATH, "--script", "vuln", local_ip]
 
         try:
-            cmd = [NMAP_PATH, "-sV", "--script", "vuln", ip]
-            output = subprocess.check_output(cmd, text=True)
-            Logger.log("RESULT", f"Vulnerability Scan Results:\n{output}")
-        except Exception as e:
-            Logger.log("ERROR", f"Vulnerability scan failed: {e}")
+            logger.log("INFO", f"Checking vulnerabilities on {local_ip} using Nmap...")
+            update_progress(1)
 
-    threading.Thread(target=vuln_task, daemon=True).start()
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            for line in process.stdout:
+                logger.log("INFO", line.strip())
+
+            process.wait()
+            logger.log("INFO", "Vulnerability check completed.")
+
+            update_progress(100)
+
+        except Exception as e:
+            logger.log("ERROR", f"Error during Nmap vulnerability check: {str(e)}")
+            update_progress(0)
+
+    threading.Thread(target=run_vuln_check, daemon=True).start()

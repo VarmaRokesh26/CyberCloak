@@ -11,7 +11,3 @@ COMMON_PATHS = [
     r"C:\Program Files\OpenVPN\bin\openvpn.exe",
     r"C:\Program Files (x86)\OpenVPN\bin\openvpn.exe"
 ]
-
-# Ensure directories exist
-os.makedirs(CONFIG_DIR, exist_ok=True)
-os.makedirs(LOG_DIR, exist_ok=True)
