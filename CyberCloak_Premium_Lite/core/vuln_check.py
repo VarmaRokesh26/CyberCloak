@@ -1,7 +1,7 @@
 import os
 import subprocess
 import threading
-from utils.logger import log_message
+from utils.logger import Logger
 from utils.paths import NMAP_PATH
 from utils.ip_manager import get_local_ip, check_nmap
 
@@ -16,15 +16,15 @@ def scan_vulnerabilities(ui_callback=None):
             return
 
         ip = get_local_ip()
-        log_message("SCAN", f"Starting vulnerability scan on {ip}...")
+        Logger.log("SCAN", f"Starting vulnerability scan on {ip}...")
         if ui_callback:
             ui_callback(10)
 
         try:
             cmd = [NMAP_PATH, "-sV", "--script", "vuln", ip]
             output = subprocess.check_output(cmd, text=True)
-            log_message("RESULT", f"Vulnerability Scan Results:\n{output}")
+            Logger.log("RESULT", f"Vulnerability Scan Results:\n{output}")
         except Exception as e:
-            log_message("ERROR", f"Vulnerability scan failed: {e}")
+            Logger.log("ERROR", f"Vulnerability scan failed: {e}")
 
     threading.Thread(target=vuln_task, daemon=True).start()

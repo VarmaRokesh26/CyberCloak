@@ -1,7 +1,7 @@
 import os
 import subprocess
 import threading
-from utils.logger import log_message
+from utils.logger import Logger
 from utils.paths import NMAP_PATH
 from utils.ip_manager import get_local_ip, check_nmap
 
@@ -16,15 +16,15 @@ def scan_ports(ui_callback=None):
             return
 
         ip = get_local_ip()
-        log_message("SCAN", f"Starting port scan on {ip}...")
+        Logger.log("SCAN", f"Starting port scan on {ip}...")
         if ui_callback:
-            ui_callback(7)
+            ui_callback(11)
 
         try:
             cmd = [NMAP_PATH, "-sS", "-sV", "-p-", ip]  # SYN scan + version detection
             output = subprocess.check_output(cmd, text=True)
-            log_message("RESULT", f"Port Scan Results:\n{output}")
+            Logger.log("RESULT", f"Port Scan Results:\n{output}")
         except Exception as e:
-            log_message("ERROR", f"Port scan failed: {e}")
+            Logger.log("ERROR", f"Port scan failed: {e}")
 
     threading.Thread(target=scan_task, daemon=True).start()

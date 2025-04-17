@@ -1,5 +1,6 @@
 import socket
 import subprocess
+import shutil
 
 def get_local_ip():
     try:
@@ -12,3 +13,7 @@ def get_public_ip():
         return subprocess.getoutput("curl -s https://api64.ipify.org")
     except:
         return "Unavailable"
+
+def check_nmap():
+    """Checks if Nmap is installed and available in PATH"""
+    return shutil.which("nmap") is not None
