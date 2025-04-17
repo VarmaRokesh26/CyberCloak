@@ -15,14 +15,11 @@ def get_vpn_config_file():
 
 
 def connect_vpn(logger: Logger, show_progress, disconnect_button):
-    """Connect to VPN using OpenVPN in a separate thread"""
 
     def update_progress(steps):
-        """Update progress bar on UI"""
         show_progress(steps)
 
     def run_vpn_connection():
-        """Runs the OpenVPN connection in a separate thread"""
         vpn_config_file = get_vpn_config_file()
 
         if vpn_config_file is None:
@@ -56,7 +53,6 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
 
 
 def disconnect_vpn(logger: Logger, disconnect_button):
-    """Disconnect VPN using OpenVPN and reset button state"""
     vpn_config_file = get_vpn_config_file()
 
     if vpn_config_file is None:
