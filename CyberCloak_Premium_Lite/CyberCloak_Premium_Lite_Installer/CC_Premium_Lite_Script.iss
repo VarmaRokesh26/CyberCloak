@@ -22,8 +22,8 @@ Source: "logs\*"; DestDir: "{app}\logs"; Flags: ignoreversion recursesubdirs cre
 Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
-Name: "{group}\CyberCloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"
-Name: "{commondesktop}\CyberCloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"; Tasks: desktopicon
+Name: "{group}\Cyber Cloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"
+Name: "{commondesktop}\Cyber Cloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
