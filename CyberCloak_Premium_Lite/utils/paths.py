@@ -1,7 +1,10 @@
 import os
+import sys
 
-APP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+if getattr(sys, 'frozen', False):
+    APP_DIR = os.path.dirname(sys.executable)
+else:
+    APP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_DIR = os.path.join(APP_DIR, "config")
 LOG_DIR = os.path.join(APP_DIR, "logs")
 LOG_FILE = os.path.join(LOG_DIR, "activity_log.txt")

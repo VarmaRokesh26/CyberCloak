@@ -1,10 +1,10 @@
 [Setup]
 AppName=CyberCloak_Premium_Lite
-AppVersion=2.6.23
+AppVersion=2.7.25
 DefaultDirName={commonpf}\CyberCloak_Premium_Lite
 DefaultGroupName=CyberCloak_Premium_Lite
 OutputDir=.\installer_output
-OutputBaseFilename=CyberCloakInstaller_2.6.23
+OutputBaseFilename=CyberCloakInstaller_2.7.25
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
