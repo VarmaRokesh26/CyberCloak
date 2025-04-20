@@ -15,16 +15,14 @@ class CyberCloakPremiumLiteUI:
         self._build_progress_bar()
         self._build_log_console()
 
-        # Trigger IP refresh if handler exists
         if "refresh_ips" in self.handlers:
             self.handlers["refresh_ips"]()
 
     def _setup_window(self):
         self.root.title("Cyber Cloak Premium Lite")
         self.root.geometry("600x500")
-        self.root.resizable(False, False)
+        self.root.resizable(True, True)
 
-        # Load icon
         base_path = os.path.dirname(os.path.abspath(__file__))
         icon_path = os.path.join(base_path, "..", "assets", "cc_icon.ico")
         if os.path.exists(icon_path):
@@ -69,7 +67,7 @@ class CyberCloakPremiumLiteUI:
 
     def _build_log_console(self):
         frame = tk.Frame(self.root)
-        frame.pack(pady=10, fill="both", expand=True)
+        frame.pack(padx=20, fill="both", expand=True)
 
         self.log_console = tk.Text(frame, height=10, wrap="none", font=("Courier", 9), bg="black", fg="white")
 
