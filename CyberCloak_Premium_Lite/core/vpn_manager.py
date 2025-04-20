@@ -3,6 +3,7 @@ import threading
 import os
 from utils.logger import Logger
 from utils.paths import CONFIG_DIR, COMMON_PATHS
+import re
 
 
 def get_vpn_config_file():
@@ -55,10 +56,7 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             for line in process.stdout:
                 cleaned_line = line.strip()
 
-                if len(cleaned_line) > 20 and cleaned_line[4] == '-' and cleaned_line[7] == '-' and cleaned_line[13] == ' ':
-                    parts = cleaned_line.split(' ')
-                    if len(parts) > 2:
-                        cleaned_line = ' '.join(parts[2:])
+                cleaned_line = re.sub(r'^\S+\s+\S+\s+', '', cleaned_line)  # Remove the timestamp and date
 
                 if cleaned_line:
                     logger.log("VPN", cleaned_line)
@@ -73,6 +71,7 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             disconnect_button.config(state="disabled")
 
     threading.Thread(target=run_vpn_connection, daemon=True).start()
+
 
 
 
