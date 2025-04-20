@@ -11,12 +11,10 @@ def get_vpn_config_file():
         return None
 
     config_files.sort()
-
     return os.path.join(CONFIG_DIR, config_files[0])
 
 
 def connect_vpn(logger: Logger, show_progress, disconnect_button):
-
     def update_progress(steps):
         show_progress(steps)
 
@@ -45,16 +43,29 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             logger.log("INFO", f"Starting VPN connection with {vpn_config_file}...")
             update_progress(1)
 
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            process = subprocess.Popen(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+
+            disconnect_button.config(state="normal")
 
             for line in process.stdout:
-                logger.log("INFO", line.strip())
+                cleaned_line = line.strip()
+
+                if len(cleaned_line) > 20 and cleaned_line[4] == '-' and cleaned_line[7] == '-' and cleaned_line[13] == ' ':
+                    parts = cleaned_line.split(' ')
+                    if len(parts) > 2:
+                        cleaned_line = ' '.join(parts[2:])
+
+                if cleaned_line:
+                    logger.log("VPN", cleaned_line)
 
             process.wait()
             update_progress(100)
-
-            logger.log("INFO", "VPN connected successfully.")
-            disconnect_button.config(state="normal")
+            logger.log("SUCCESS", "VPN Connected Successfully!")
 
         except Exception as e:
             logger.log("ERROR", f"Error during VPN connection: {str(e)}")
@@ -64,32 +75,26 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
     threading.Thread(target=run_vpn_connection, daemon=True).start()
 
 
+
 def disconnect_vpn(logger: Logger, disconnect_button):
-    vpn_config_file = get_vpn_config_file()
-
-    if vpn_config_file is None:
-        logger.log("ERROR", "No OpenVPN config file found for disconnection.")
-        disconnect_button.config(state="disabled")
-        return
-
     try:
-        logger.log("INFO", f"Disconnecting VPN using {vpn_config_file}...")
-        openvpn_executable = None
-        for path in COMMON_PATHS:
-            if os.path.exists(path):
-                openvpn_executable = path
-                break
+        logger.log("VPN", "Disconnecting VPN...")
 
-        if openvpn_executable is None:
-            logger.log("ERROR", "OpenVPN executable not found in specified paths.")
-            disconnect_button.config(state="disabled")
-            return
+        process = subprocess.Popen(
+            ["taskkill", "/F", "/IM", "openvpn.exe"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            shell=True,
+            text=True
+        )
 
-        command = [openvpn_executable, "--config", vpn_config_file, "--disconnect"]
+        for line in process.stdout:
+            if line.strip():
+                logger.log("VPN", line.strip())
 
-        subprocess.call(command)
+        process.wait()
 
-        logger.log("INFO", "VPN disconnected successfully.")
+        logger.log("SUCCESS", "VPN Disconnected.")
         disconnect_button.config(state="disabled")
 
     except Exception as e:
