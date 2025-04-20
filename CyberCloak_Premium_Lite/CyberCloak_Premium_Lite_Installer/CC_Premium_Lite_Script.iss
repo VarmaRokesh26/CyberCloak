@@ -1,17 +1,17 @@
 [Setup]
-AppName=CyberCloak_Demo
-AppVersion=1.5.23
-DefaultDirName={commonpf}\CyberCloak_Demo
-DefaultGroupName=CyberCloak_Demo
+AppName=CyberCloak_Premium_Lite
+AppVersion=2.6.23
+DefaultDirName={commonpf}\CyberCloak_Premium_Lite
+DefaultGroupName=CyberCloak_Premium_Lite
 OutputDir=.\installer_output
-OutputBaseFilename=CyberCloakInstaller_1.5.23
+OutputBaseFilename=CyberCloakInstaller_2.6.23
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 DisableDirPage=no
 
 [Files]
-Source: "CyberCloak_Demo.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "CyberCloak_Premium_Lite.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "assets\cc_icon.ico"; DestDir: "{app}\assets"; Flags: ignoreversion
 
 ; Include config and logs folders
@@ -22,8 +22,8 @@ Source: "logs\*"; DestDir: "{app}\logs"; Flags: ignoreversion recursesubdirs cre
 Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
-Name: "{group}\CyberCloak Demo"; Filename: "{app}\CyberCloak_Demo.exe"; IconFilename: "{app}\assets\cc_icon.ico"
-Name: "{commondesktop}\CyberCloak Demo"; Filename: "{app}\CyberCloak_Demo.exe"; IconFilename: "{app}\assets\cc_icon.ico"; Tasks: desktopicon
+Name: "{group}\CyberCloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"
+Name: "{commondesktop}\CyberCloak Premium Lite"; Filename: "{app}\CyberCloak_Premium_Lite.exe"; IconFilename: "{app}\assets\cc_icon.ico"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
