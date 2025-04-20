@@ -71,8 +71,19 @@ class CyberCloakPremiumLiteUI:
         frame = tk.Frame(self.root)
         frame.pack(pady=10, fill="both", expand=True)
 
-        self.log_console = scrolledtext.ScrolledText(frame, height=10, wrap="word", font=("Courier", 9))
-        self.log_console.pack(fill="both", expand=True, padx=10, pady=5)
+        self.log_console = tk.Text(frame, height=10, wrap="none", font=("Courier", 9), bg="black", fg="white")
+
+        x_scroll = tk.Scrollbar(frame, orient="horizontal", command=self.log_console.xview)
+        y_scroll = tk.Scrollbar(frame, orient="vertical", command=self.log_console.yview)
+
+        self.log_console.configure(xscrollcommand=x_scroll.set, yscrollcommand=y_scroll.set)
+        self.log_console.grid(row=0, column=0, sticky="nsew")
+        y_scroll.grid(row=0, column=1, sticky="ns")
+        x_scroll.grid(row=1, column=0, sticky="ew")
+
+        frame.grid_rowconfigure(0, weight=1)
+        frame.grid_columnconfigure(0, weight=1)
+
         self.log_console.config(state="disabled")
 
     def show_progress(self, duration_sec):

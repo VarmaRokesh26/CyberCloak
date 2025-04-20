@@ -12,14 +12,18 @@ def main():
     root.title("CyberCloak Premium Lite")
 
     ui = CyberCloakPremiumLiteUI(root, handlers={})
-
     logger = Logger(log_callback=ui.log)
 
     def handle_connect_vpn():
-        ui.run_with_progress(lambda: connect_vpn(logger, ui.show_progress, ui.disconnect_button))
+        def _connect():
+            connect_vpn(logger, ui.show_progress, ui.disconnect_button)
+            ui.disconnect_button.config(state="normal")
+
+        ui.run_with_progress(_connect)
 
     def handle_disconnect_vpn():
         disconnect_vpn(logger, ui.disconnect_button)
+        ui.disconnect_button.config(state="disabled")
 
     def handle_scan_ports():
         ip = get_local_ip()
