@@ -62,7 +62,7 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
                 if display_line:
                     logger.log("VPN", display_line)
 
-                if "CONNECTED,SUCCESS" in cleaned_line:
+                if "Initialization Sequence Completed" in cleaned_line:
                     logger.log("SUCCESS", "VPN Connected Successfully!")
                     update_progress(100)
                     connected_flag = True
