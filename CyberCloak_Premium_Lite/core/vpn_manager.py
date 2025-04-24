@@ -58,11 +58,10 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
                 cleaned_line = line.strip()
 
                 display_line = re.sub(r'^\S+\s+\S+\s+', '', cleaned_line)
-
                 if display_line:
                     logger.log("VPN", display_line)
 
-                if "Initialization Sequence Completed" in cleaned_line:
+                if "Protocol options: protocol-flags cc-exit tls-ekm dyn-tls-crypt" in display_line:
                     logger.log("SUCCESS", "VPN Connected Successfully!")
                     update_progress(100)
                     connected_flag = True
