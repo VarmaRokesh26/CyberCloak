@@ -52,18 +52,27 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             )
 
             disconnect_button.config(state="normal")
+            connected_flag = False
 
             for line in process.stdout:
                 cleaned_line = line.strip()
 
-                cleaned_line = re.sub(r'^\S+\s+\S+\s+', '', cleaned_line)  # Remove the timestamp and date
+                display_line = re.sub(r'^\S+\s+\S+\s+', '', cleaned_line)
 
-                if cleaned_line:
-                    logger.log("VPN", cleaned_line)
+                if display_line:
+                    logger.log("VPN", display_line)
+
+                if "CONNECTED,SUCCESS" in cleaned_line:
+                    logger.log("SUCCESS", "VPN Connected Successfully!")
+                    update_progress(100)
+                    connected_flag = True
 
             process.wait()
-            update_progress(100)
-            logger.log("SUCCESS", "VPN Connected Successfully!")
+
+            if not connected_flag:
+                logger.log("ERROR", "VPN process ended without a successful connection.")
+                update_progress(0)
+                disconnect_button.config(state="disabled")
 
         except Exception as e:
             logger.log("ERROR", f"Error during VPN connection: {str(e)}")
@@ -71,7 +80,6 @@ def connect_vpn(logger: Logger, show_progress, disconnect_button):
             disconnect_button.config(state="disabled")
 
     threading.Thread(target=run_vpn_connection, daemon=True).start()
-
 
 
 
