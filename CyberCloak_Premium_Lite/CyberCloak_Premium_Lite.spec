@@ -28,7 +28,6 @@ exe = EXE(
     strip=False,
     upx=True,
     upx_exclude=[],
-    uac_amdin=True,
     runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
