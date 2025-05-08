@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
-		<title>Generic - Solid State by HTML5 UP</title>
+		<title>Cyber Cloak</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,7 +14,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Solid State</a></h1>
+						<h1><a href="index.html">Cyber Cloak</a></h1>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -44,8 +39,8 @@
 					<section id="wrapper">
 						<header>
 							<div class="inner">
-								<h2>Generic</h2>
-								<p>Phasellus non pulvinar erat. Fusce tincidunt nisl eget ipsum.</p>
+								<h2>Feature 1 - Port Scanner</h2>
+								<p>Scan open ports across any target system to identify potential entry points and ensure no backdoor goes unnoticed — fast, efficient, and customizable for your network strategy.</p>
 							</div>
 						</header>
 
@@ -53,15 +48,18 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									<h3 class="major">Lorem ipsum dolor</h3>
-									<p>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien.</p>
+									<h3 class="major">Port Scanner</h3>
+									<p>The Port Scanner module in CyberCloak is designed to identify open, closed, and filtered ports across remote systems in real-time.</p>
 
-									<p>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius.</p>
+									<p>It helps security analysts and developers assess the exposure level of their servers by probing TCP and UDP ports systematically. Our implementation leverages a combination of native Java socket programming and asynchronous threading to ensure speed and efficiency during scans. Additionally, we have optimized the tool to support both single-host and multi-range IP scanning with adjustable timeout settings.</p>
 
-									<h3 class="major">Vitae phasellus</h3>
-									<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
+									<p>This scanner forms the first line of defense, allowing users to detect exposed services and reduce potential attack surfaces before exploitation occurs.</p>
+									<h3 class="major">Tools Used for port Scanner</h3>
+									<p><em><span class="version-name">Demo Version - </span></em> The initial port scanning capability was developed using core Java with basic implementations of Socket and InetAddress classes. It scans for open TCP ports on a specified host and logs results to the console. This lightweight version was meant to demonstrate the basic functionality without multithreading or advanced configuration.</p>
+									<p><em><span class="version-name">Premium Lite Version - </span></em>This version introduced multithreaded scanning using Java’s ExecutorService, enabling faster scans across multiple ports concurrently. Logging was enhanced using SLF4J with Logback, and a simple UI layer was added to display results dynamically. The code was modularized for better maintenance and integration.</p>
+									<p><em><span class="version-name">Premium Standard Version - </span></em>We enhanced scanning efficiency by incorporating asynchronous I/O techniques and optimized thread pooling. Port range inputs, scan timeout settings, and error handling were improved. Results were structured in JSON and persisted temporarily for historical analysis. A basic API was added for backend integration using Python.</p>
 
-									<section class="features">
+									<!-- <section class="features">
 										<article>
 											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
 											<h3 class="major">Sed feugiat lorem</h3>
@@ -74,7 +72,7 @@
 											<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
 											<a href="#" class="special">Learn more</a>
 										</article>
-									</section>
+									</section> -->
 
 								</div>
 							</div>
@@ -82,46 +80,49 @@
 					</section>
 
 				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="major">Get in touch</h2>
-							<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
-							<form method="post" action="#">
-								<div class="fields">
-									<div class="field">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="4"></textarea>
-									</div>
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in Touch with CyberCloak</h2>
+						<p>Have questions, feedback, or need a custom version of CyberCloak tailored to your infrastructure? Drop us a message and our team will get back to you as soon as possible.</p>
+						
+						<form method="post" action="#">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Full Name</label>
+									<input type="text" name="name" id="name" placeholder="e.g., Rokesh Varma" />
 								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</form>
-							<ul class="contact">
-								<li class="icon solid fa-home">
-									Untitled Inc<br />
-									1234 Somewhere Road Suite #2894<br />
-									Nashville, TN 00000-0000
-								</li>
-								<li class="icon solid fa-phone">(000) 000-0000</li>
-								<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-								<li class="icon brands fa-twitter"><a href="#">twitter.com/untitled-tld</a></li>
-								<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled-tld</a></li>
-								<li class="icon brands fa-instagram"><a href="#">instagram.com/untitled-tld</a></li>
+								<div class="field">
+									<label for="email">Email Address</label>
+									<input type="email" name="email" id="email" placeholder="e.g., you@example.com" />
+								</div>
+								<div class="field">
+									<label for="message">Your Message</label>
+									<textarea name="message" id="message" rows="4" placeholder="Let us know what you’re looking for..."></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" class="primary" /></li>
 							</ul>
-							<ul class="copyright">
-								<li>&copy; Untitled Inc. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</section>
+						</form>
+				
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								CyberCloak Inc<br />
+							#47, SecureNet Street, CyberZone<br />
+								Chennai, TN 600001
+							</li>
+							<li class="icon solid fa-phone">+91 98765 43210</li>
+							<li class="icon solid fa-envelope"><a href="#">support@cybercloak.app</a></li>
+							<li class="icon brands fa-github"><a href="#">github.com/cybercloak</a></li>
+							<li class="icon brands fa-linkedin"><a href="#">linkedin.com/company/cybercloak</a></li>
+						</ul>
+				
+						<ul class="copyright">
+							<li>&copy; 2025 CyberCloak. All rights reserved.</li>
+							<li>Built by Rokesh Varma</li>
+						</ul>
+					</div>
+				</section>
 
 			</div>
 

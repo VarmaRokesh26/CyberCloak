@@ -4149,3 +4149,11 @@ input, select, textarea {
 		}
 
 	}
+
+	.version-name {
+		font-weight: bold;
+		border-radius: 4px;
+		font-size: 1.1em;
+		margin-bottom: 6px;
+	  }
+	  
