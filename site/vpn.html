@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cyber Cloak</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Cyber Cloak</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="prereq.html">Pre-Requesites</a></li>
+								<li><a href="port-scanner.html">Port Scanner</a></li>
+								<li><a href="vulnerability-check.html">Vulnerability Check</a></li>
+								<li><a href="vpn.html">VPN</a></li>
+								<li><a href="ip.html">IP Ghosting</a></li>
+								<li><a href="download.html">Download</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Feature 3 - VPN</h2>
+								<p>Establish secure, encrypted VPN tunnels to protect your traffic, anonymize identity, and bypass restrictions — all under your full control with customizable configs.</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Virtual private Network</h3>
+									<p>The Virtual Private Network (VPN) feature in CyberCloak ensures encrypted and secure communication between your device and the internet or remote systems.</p>
+
+									<p>It masks the user's IP address and routes the data through a private, secured tunnel to prevent eavesdropping, tracking, and unauthorized access. This is particularly essential when operating sensitive scans or accessing confidential environments, helping to hide the identity and location of the system performing the operation.</p>
+
+									<p>The VPN component establishes a secure tunnel using the OpenVPN protocol. When the user enables this feature, the application connects to a pre-configured VPN server using credentials and keys provided in the client configuration file. This connection is monitored to ensure stability, and once connected, all outbound traffic from the system is routed through the VPN.</p>
+									<p>In the Pro version, this VPN connection can be chained with IP Ghosting or configured dynamically, giving the user full control over region and endpoint selection. Additionally, the app detects connection success through log monitoring, allowing for real-time feedback within the UI — such as status messages like “VPN Connected Successfully.”</p>
+									<h3 class="major">Tools Used for VPN</h3>
+									<p><em><span class="version-name">Demo Version - </span></em>In the Demo version, the VPN feature is integrated using OpenVPN’s client configuration file, executed and monitored via the backend. The connection is established using the .ovpn file, and logs are parsed to determine connection status. Java ProcessBuilder is used to execute the OpenVPN command, and the application listens to the standard output to verify successful connection, without offering additional region or config controls.</p>
+									<p><em><span class="version-name">Premium Lite Version - </span></em>In Premium Lite, the system improves reliability by bundling predefined server configurations and providing a toggle mechanism in the UI to enable or disable the VPN. It uses background threads to handle VPN startup and shutdown more gracefully, and logs are parsed asynchronously to reflect status in real-time.</p>
+									<p><em><span class="version-name">Premium Standard Version - </span></em>The Premium Standard version introduces region-based VPN support by allowing multiple .ovpn configurations. The backend dynamically selects the configuration based on the user’s selection. The integration becomes more seamless with a scheduled watchdog mechanism that ensures VPN connection remains stable throughout the session. The logs are parsed and structured as JSON responses that integrate into a status dashboard.</p>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in Touch with CyberCloak</h2>
+						<p>Have questions, feedback, or need a custom version of CyberCloak tailored to your infrastructure? Drop us a message and our team will get back to you as soon as possible.</p>
+						
+						<form method="post" action="#">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Full Name</label>
+									<input type="text" name="name" id="name" placeholder="e.g., Rokesh Varma" />
+								</div>
+								<div class="field">
+									<label for="email">Email Address</label>
+									<input type="email" name="email" id="email" placeholder="e.g., you@example.com" />
+								</div>
+								<div class="field">
+									<label for="message">Your Message</label>
+									<textarea name="message" id="message" rows="4" placeholder="Let us know what you’re looking for..."></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" class="primary" /></li>
+							</ul>
+						</form>
+				
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								CyberCloak Inc<br />
+							#47, SecureNet Street, CyberZone<br />
+								Chennai, TN 600001
+							</li>
+							<li class="icon solid fa-phone">+91 98765 43210</li>
+							<li class="icon solid fa-envelope"><a href="#">support@cybercloak.app</a></li>
+							<li class="icon brands fa-github"><a href="#">github.com/cybercloak</a></li>
+							<li class="icon brands fa-linkedin"><a href="#">linkedin.com/company/cybercloak</a></li>
+						</ul>
+				
+						<ul class="copyright">
+							<li>&copy; 2025 CyberCloak. All rights reserved.</li>
+							<li>Built by Rokesh Varma</li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
