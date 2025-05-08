@@ -3430,7 +3430,7 @@ input, select, textarea {
 			padding-bottom: 0.4em;
 		}
 
-		#banner p {
+		#banner p{
 			-moz-transition: opacity 0.5s ease, -moz-transform 0.5s ease, -moz-filter 0.25s ease;
 			-webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease, -webkit-filter 0.25s ease;
 			-ms-transition: opacity 0.5s ease, -ms-transform 0.5s ease, -ms-filter 0.25s ease;
