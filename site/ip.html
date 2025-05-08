@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cyber Cloak</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Cyber Cloak</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="prereq.html">Pre-Requesites</a></li>
+								<li><a href="port-scanner.html">Port Scanner</a></li>
+								<li><a href="vulnerability-check.html">Vulnerability Check</a></li>
+								<li><a href="vpn.html">VPN</a></li>
+								<li><a href="ip.html">IP Ghosting</a></li>
+								<li><a href="download.html">Download</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Feature 4 - IP Ghosting</h2>
+								<p>Mask your real IP with dynamic, rotating proxies or VPN routes — vanish from trackers and keep surveillance out of your system with a single switch.</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">IP Ghosting</h3>
+									<p>IP Ghosting is a stealth feature within CyberCloak that dynamically changes or masks the origin IP of the system running scans or connecting to external systems.</p>
+
+									<p>Unlike static VPN usage, IP Ghosting adds another layer of anonymity by making the system appear as if it originates from multiple or randomized IP sources. This is crucial when trying to avoid IP-based blacklisting, rate-limiting, or geo-blocking during sensitive cybersecurity operations.</p>
+
+									<p>When enabled, IP Ghosting works by chaining the active VPN connection with routing manipulation or proxy hopping techniques. The system either reconfigures routing tables to pass through rotating exit nodes or uses a pool of proxy/VPN configurations to randomly select new IP addresses during active sessions.</p>
+									<p>In some versions, it also periodically disconnects and reconnects the VPN with a different node, simulating a new IP identity each time. The real-time connection status is tracked to ensure uninterrupted scans, and fallback mechanisms are built to restore a known good IP path in case of disruption.</p>
+									<h3 class="major">Tools Used for IP Ghosting</h3>
+									<p><em><span class="version-name">Demo Version - </span></em>In the Demo version, IP Ghosting is intentionally excluded to maintain lightweight execution and avoid overcomplicating the basic demonstration flow. Although the VPN component remains fully functional, it is limited to a single static configuration. This helps users focus on testing core features like Port Scanning and Vulnerability Checks without the need for external configuration management or randomized IP behavior. We’ve ensured that the absence of IP Ghosting doesn’t impact the integrity of the demo — instead, it simplifies deployment and compatibility across systems.</p>
+									<p><em><span class="version-name">Premium Lite Version - </span></em>IP Ghosting is introduced in Premium Lite with a controlled mechanism. The system uses multiple predefined VPN configurations, and upon each activation, it randomly selects a new .ovpn file. This results in a different IP for every session. The backend tracks connection logs and exposes ghosted IP information in the frontend. This basic IP switching adds a layer of obfuscation and reduces traceability, though it doesn’t allow runtime reconfiguration or chaining.</p>
+									<p><em><span class="version-name">Premium Standard Version - </span></em>In Premium Standard, the IP Ghosting mechanism is enhanced with scheduled IP rotations. The backend periodically disconnects and reconnects the VPN connection using alternate configurations, with real-time monitoring of external IP via external API calls (e.g., ipinfo.io). Users can view the history of used IPs, set rotation intervals, and define fallback IPs in case of connection failure. The Spring Boot backend ensures each IP change is non-blocking and safe across parallel scanning modules.</p>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in Touch with CyberCloak</h2>
+						<p>Have questions, feedback, or need a custom version of CyberCloak tailored to your infrastructure? Drop us a message and our team will get back to you as soon as possible.</p>
+						
+						<form method="post" action="#">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Full Name</label>
+									<input type="text" name="name" id="name" placeholder="e.g., Rokesh Varma" />
+								</div>
+								<div class="field">
+									<label for="email">Email Address</label>
+									<input type="email" name="email" id="email" placeholder="e.g., you@example.com" />
+								</div>
+								<div class="field">
+									<label for="message">Your Message</label>
+									<textarea name="message" id="message" rows="4" placeholder="Let us know what you’re looking for..."></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" class="primary" /></li>
+							</ul>
+						</form>
+				
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								CyberCloak Inc<br />
+							#47, SecureNet Street, CyberZone<br />
+								Chennai, TN 600001
+							</li>
+							<li class="icon solid fa-phone">+91 98765 43210</li>
+							<li class="icon solid fa-envelope"><a href="#">support@cybercloak.app</a></li>
+							<li class="icon brands fa-github"><a href="#">github.com/cybercloak</a></li>
+							<li class="icon brands fa-linkedin"><a href="#">linkedin.com/company/cybercloak</a></li>
+						</ul>
+				
+						<ul class="copyright">
+							<li>&copy; 2025 CyberCloak. All rights reserved.</li>
+							<li>Built by Rokesh Varma</li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
