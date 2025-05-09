@@ -121,7 +121,7 @@
 			<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 			<script>
 				(function(){
-					emailjs.init("YOUR_PUBLIC_KEY"); // From EmailJS dashboard
+					emailjs.init("vAndbM3DgFVZo6tnA"); // From EmailJS dashboard
 				})();
 
 				async function handleSubmit(event) {
@@ -130,21 +130,18 @@
 					const email = document.getElementById("email").value.trim();
 					const message = document.getElementById("message").value.trim();
 
-					// ✅ 1. Send to Google Sheet (via SheetDB)
-					fetch("https://sheetdb.io/api/v1/YOUR_SHEETDB_ID", {
+					fetch("https://sheetdb.io/api/v1/0xdnkssitpjpr", {
 					method: "POST",
 					body: JSON.stringify({ data: { name, email, message } }),
 					headers: { "Content-Type": "application/json" }
 					});
 
-					// ✅ 2. Send Confirmation to User
-					emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_USER_ID", {
+					emailjs.send("CyberCloak_v01", "template_iedbc2j", {
 					to_name: name,
 					to_email: email
 					});
 
-					// ✅ 3. Send Notification to You
-					emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_ADMIN_ID", {
+					emailjs.send("CyberCloak_v01", "template_wm8ptpc", {
 					user_name: name,
 					user_email: email,
 					user_message: message
