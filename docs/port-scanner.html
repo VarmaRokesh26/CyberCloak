@@ -118,6 +118,42 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+			<script>
+				(function(){
+					emailjs.init("YOUR_PUBLIC_KEY"); // From EmailJS dashboard
+				})();
+
+				async function handleSubmit(event) {
+					event.preventDefault();
+					const name = document.getElementById("name").value.trim();
+					const email = document.getElementById("email").value.trim();
+					const message = document.getElementById("message").value.trim();
+
+					// ✅ 1. Send to Google Sheet (via SheetDB)
+					fetch("https://sheetdb.io/api/v1/YOUR_SHEETDB_ID", {
+					method: "POST",
+					body: JSON.stringify({ data: { name, email, message } }),
+					headers: { "Content-Type": "application/json" }
+					});
+
+					// ✅ 2. Send Confirmation to User
+					emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_USER_ID", {
+					to_name: name,
+					to_email: email
+					});
+
+					// ✅ 3. Send Notification to You
+					emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_ADMIN_ID", {
+					user_name: name,
+					user_email: email,
+					user_message: message
+					});
+
+					alert("Message sent successfully!");
+					event.target.reset();
+				}
+			</script>
 
 	</body>
 </html>
